@@ -1,10 +1,13 @@
-function SummaryOutput({summary}){
+import ReactMarkdown from "react-markdown";
 
+function SummaryOutput({ summary }) {
   return (
     <div className="summary-output">
-      {summary || "Your generated summary will appear here..."}
+      <ReactMarkdown>
+        {summary}
+      </ReactMarkdown>
     </div>
   );
 }
 
-export default SummaryOutput
+export default SummaryOutput;
