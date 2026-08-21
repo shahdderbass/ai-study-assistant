@@ -13,9 +13,11 @@ function History({ sessions, handleOpenSession, handleDeleteSession }) {
             <h2>{session.title || "Untitled Session"}</h2>
             <p>{session.notes}</p>
 
-            <p>
-              Score: {session.score ?? "Not submitted"}
-            </p>
+            <div className="session-details">
+                <span>🧠 {session.flashcards?.length || 0} flashcards</span>
+                <span>❔ {session.quiz?.length || 0} quiz questions</span>
+                <span>⭐ Score: {session.score ?? "Not submitted"}</span>
+            </div>
 
             <p>
               {new Date(session.createdAt).toLocaleDateString()}

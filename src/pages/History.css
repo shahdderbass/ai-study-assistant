@@ -136,3 +136,55 @@
   text-align: center;
   color: #999;
 }
+
+/* =========================
+   SESSION DETAILS
+========================= */
+
+.session-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin: 14px 0 8px;
+}
+
+.session-details span {
+  background: #fdf0f4;
+  color: #9c7890;
+
+  padding: 7px 11px;
+
+  border-radius: 12px;
+
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.dark-mode .history-card {
+  background: rgba(49, 39, 48, 0.95);
+  border-color: #5a4553;
+}
+
+.dark-mode .history-card h2 {
+  color: #f4e8ee;
+}
+
+.dark-mode .history-card p {
+  color: #c2b2bc;
+}
+
+.dark-mode .session-details span {
+  background: #45343f;
+  color: #d8c6d1;
+}
+
+.dark-mode .history-card button:first-of-type {
+  background: #745066;
+  color: #f6e8ef;
+}
+
+.dark-mode .history-card button:last-of-type {
+  background: #4a363f;
+  color: #e7a9b8;
+}

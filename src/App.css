@@ -64,3 +64,18 @@ button {
   gap: 24px;
   min-width: 0;
 }
+
+/* =========================
+   DARK MODE
+========================= */
+
+.app-shell.dark-mode {
+  background: linear-gradient(
+    135deg,
+    #241c25 0%,
+    #2b2028 50%,
+    #302334 100%
+  );
+
+  color: #f5eaf0;
+}

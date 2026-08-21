@@ -387,3 +387,74 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+.dark-mode .card {
+  background: #332832;
+  color: #f4e8ee;
+}
+
+.dark-mode .card h2,
+.dark-mode .question-card h3 {
+  color: #f4e8ee;
+}
+
+.dark-mode .notes-input,
+.dark-mode .summary-output {
+  background: #2b222b;
+  color: #f4e8ee;
+  border-color: #5a4352;
+}
+
+.dark-mode .notes-input::placeholder {
+  color: #9d8b96;
+}
+
+.dark-mode .answer-option {
+  background: #2d242c;
+  color: #e9dbe3;
+  border-color: #594452;
+}
+
+.dark-mode .answer-option:hover:not(:disabled) {
+  background: #382c36;
+}
+
+.dark-mode .tips-card p {
+  color: #c7b7c1;
+}
+
+/* Dark mode buttons */
+
+.dark-mode .summary-button {
+  background: #7f4f67;
+  color: #f7eaf0;
+  box-shadow: none;
+}
+
+.dark-mode .quiz-button {
+  background: #55506f;
+  color: #eeeafd;
+  box-shadow: none;
+}
+
+.dark-mode .action-buttons button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.dark-mode .submit-quiz {
+  background: #7f4f67;
+  color: #f7eaf0;
+  box-shadow: none;
+}
+
+.dark-mode .save-session {
+  background: #4b3b52;
+  color: #e6d7ec;
+}
+
+.dark-mode .flashcards-button {
+  background: #66506f;
+  color: #f0e6f3;
+  box-shadow: none;
+}

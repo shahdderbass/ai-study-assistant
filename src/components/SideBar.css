@@ -108,6 +108,33 @@
   color: #b9a9b9;
 }
 
+.dark-mode .sidebar {
+  background: rgba(48, 37, 47, 0.95);
+}
+
+.dark-mode .logo-card h2 {
+  color: #f3a7c2;
+}
+
+.dark-mode .nav-item {
+  color: #cbb8c6;
+}
+
+.dark-mode .nav-item:hover {
+  background: #493541;
+  color: #f3a7c2;
+}
+
+.dark-mode .nav-item.active {
+  background: #553745;
+  color: #f3a7c2;
+}
+
+.dark-mode .sidebar-decoration,
+.dark-mode .sidebar-decoration p {
+  color: #9f8a99;
+}
+
 @media (max-width: 900px) {
   .sidebar {
     width: 100%;

@@ -34,6 +34,8 @@ function App() {
   const [sessions, setSessions] = useState([]); // save all sessions received from MongoDB
   const [currentPage, setCurrentPage] = useState("home");
 
+  const [darkMode, setDarkMode] = useState(false);
+
   async function handleSummary() {
     if (notes.trim() === ""){
       setError("Please enter some notes first");
@@ -160,7 +162,7 @@ function App() {
 
       const titleData = await titleResponse.json();
 
-      console.log("Generated title:", titleData);
+      //console.log("Generated title:", titleData);
 
       const response = await fetch("http://localhost:5001/sessions", {
         method: "POST",
@@ -239,6 +241,19 @@ function App() {
     }
   }
 
+  function handleNewSession() {
+    setNotes("");
+    setSummary("");
+    setQuiz([]);
+    setFlashcards([]);
+    setScore(null);
+    setSelectedAnswers({});
+    setQuizSubmitted(false);
+    setError("");
+
+    setCurrentPage("home");
+  }
+
   async function handleGenerateFlashcards() {
     if (notes.trim() === "") {
       setError("Please enter some notes first.");
@@ -276,7 +291,7 @@ function App() {
   }
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${darkMode ? "dark-mode" : ""}`}>
 
       {/* sidebar */}
       <Sidebar 
@@ -289,7 +304,11 @@ function App() {
       {/* main */}
       <main className="main-content">
 
-      <Header />
+      <Header 
+        handleNewSession={handleNewSession} 
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
 
       {currentPage === "home" && (
         <Home

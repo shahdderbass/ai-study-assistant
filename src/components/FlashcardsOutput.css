@@ -104,3 +104,22 @@
     grid-template-columns: 1fr;
   }
 }
+
+.dark-mode .flashcard {
+  background: linear-gradient(
+    145deg,
+    #302530,
+    #372b3a
+  );
+
+  border-color: #5a4657;
+}
+
+.dark-mode .flashcard h3,
+.dark-mode .flashcard p {
+  color: #f3e6ee;
+}
+
+.dark-mode .flashcard small {
+  color: #b5a2ad;
+}

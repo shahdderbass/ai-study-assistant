@@ -42,3 +42,50 @@
 .mode-button:hover {
   transform: translateY(-1px);
 }
+
+.new-session-button {
+  border: none;
+  border-radius: 14px;
+
+  padding: 11px 18px;
+
+  background: #fce4ec;
+  color: #db5c8a;
+
+  font-size: 13.5px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.new-session-button:hover {
+  transform: translateY(-1px);
+  background: #f8d3df;
+}
+
+.dark-mode .top-header h1 {
+  color: #f3a7c2;
+}
+
+.dark-mode .top-header p {
+  color: #bca8b5;
+}
+
+.dark-mode .mode-button,
+.dark-mode .new-session-button {
+  background: #3b2d38;
+  color: #f4dce7;
+}
+
+.dark-mode .new-session-button {
+  background: #493642;
+  color: #e8d3dd;
+}
+
+.dark-mode .mode-button {
+  background: #3d303a;
+  color: #eadde4;
+  box-shadow: none;
+}

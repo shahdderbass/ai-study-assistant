@@ -1,6 +1,7 @@
 function FlashcardsButton({ onGenerateFlashcards, loading }){
     return (
         <button
+            className="flashcards-button"
             onClick={onGenerateFlashcards}
             disabled={loading}
         >
