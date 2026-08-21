@@ -1,0 +1,389 @@
+
+/* ---- Grids ---- */
+.top-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+ 
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+ 
+@media (max-width: 900px) {
+  .app-shell { flex-direction: column; }
+  .sidebar { width: auto; }
+  .top-grid, .bottom-grid { grid-template-columns: 1fr; }
+}
+ 
+/* ---- Card base ---- */
+.card {
+  background: #ffffff;
+  border-radius: 26px;
+  padding: 26px;
+  box-shadow: 0 8px 30px rgba(219, 112, 147, 0.07);
+  position: relative;
+  overflow: hidden;
+}
+ 
+.card h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #5b4b5b;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+ 
+/* ---- Notes card ---- */
+.notes-input {
+  width: 100%;
+  min-height: 140px;
+  border-radius: 18px;
+  border: 1px solid #fbd9e6;
+  background: #fef6f9;
+  padding: 16px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #4a3f4a;
+  resize: vertical;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+ 
+.notes-input::placeholder {
+  color: #cbb9c6;
+}
+ 
+.notes-input:focus {
+  outline: none;
+  border-color: #f4a5c5;
+  box-shadow: 0 0 0 4px rgba(244, 165, 197, 0.18);
+}
+ 
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+ 
+.action-buttons button {
+  flex: 1;
+  min-width: 160px;
+  padding: 13px 18px;
+  border: none;
+  border-radius: 16px;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+ 
+.summary-button {
+  color: #ffffff;
+  background: linear-gradient(135deg, #f472a0, #f0819f);
+  box-shadow: 0 6px 18px rgba(240, 129, 159, 0.3);
+}
+ 
+.quiz-button {
+  background: linear-gradient(135deg, #c4b5f6, #a5b4f5);
+  color: #4c3d8f;
+  box-shadow: 0 6px 18px rgba(165, 180, 245, 0.3);
+}
+ 
+.action-buttons button:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+ 
+.action-buttons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+ 
+.error-message {
+  margin-top: 14px;
+  color: #e0567c;
+  background: #fef0f4;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+ 
+/* ---- Tips card ---- */
+.tips-card p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #7a6a7a;
+  line-height: 1.5;
+  text-align: left;
+}
+ 
+.tips-card .cute-character {
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  font-size: 40px;
+  opacity: 0.9;
+}
+ 
+/* ---- Summary / Quiz section titles ---- */
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+ 
+.section-title h2 {
+  margin-bottom: 0;
+}
+ 
+.section-title span {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #b9a9b9;
+  background: #fdf0f4;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+ 
+/* ---- Summary card ---- */
+.summary-card .plant-decoration {
+  margin-top: 16px;
+  font-size: 26px;
+  text-align: right;
+  opacity: 0.85;
+}
+ 
+/* Summary text output */
+.summary-output {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6c5d6c;
+  background: #fef6f9;
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 120px;
+  white-space: pre-wrap;
+}
+
+.summary-output p {
+  margin: 6px 0;
+}
+
+.summary-output h1,
+.summary-output h2,
+.summary-output h3 {
+  margin: 12px 0 6px;
+}
+
+.summary-output ul,
+.summary-output ol {
+  margin: 6px 0;
+  padding-left: 22px;
+}
+
+.summary-output li {
+  margin: 3px 0;
+}
+ 
+/* ---- Quiz card ---- */
+.question-card {
+  margin-bottom: 22px;
+}
+ 
+.question-card:last-child {
+  margin-bottom: 18px;
+}
+ 
+.question-card h3 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #5b4b5b;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+ 
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+ 
+.answer-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 11px 14px;
+  border-radius: 14px;
+  border: 1.5px solid #f5eaf0;
+  background: #ffffff;
+  font-size: 14px;
+  font-family: inherit;
+  color: #6c5d6c;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+ 
+.answer-option:hover:not(:disabled) {
+  background: #fef6f9;
+}
+ 
+.answer-option:disabled {
+  cursor: default;
+}
+ 
+.radio-circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #e3d3dd;
+  flex-shrink: 0;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+ 
+/* selected before submit */
+.answer-option.selected {
+  border-color: #f4a5c5;
+  background: #fdf0f4;
+  color: #db5c8a;
+  font-weight: 700;
+}
+ 
+.answer-option.selected .radio-circle {
+  border-color: #ec6ba0;
+  background: radial-gradient(#ec6ba0 0 40%, transparent 45%);
+}
+ 
+/* after submit: correct answer highlighted green */
+.answer-option.correct {
+  border-color: #7fd6a8;
+  background: #ecfbf3;
+  color: #1f8a5c;
+  font-weight: 700;
+}
+ 
+.answer-option.correct .radio-circle {
+  border-color: #2ea86f;
+  background: radial-gradient(#2ea86f 0 40%, transparent 45%);
+}
+ 
+/* after submit: the wrong option the user picked */
+.answer-option.wrong {
+  border-color: #f3a8b8;
+  background: #fdeef1;
+  color: #d8456c;
+  font-weight: 700;
+}
+ 
+.answer-option.wrong .radio-circle {
+  border-color: #e0567c;
+  background: radial-gradient(#e0567c 0 40%, transparent 45%);
+}
+ 
+.submit-quiz {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f472a0, #f0819f);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 6px 18px rgba(240, 129, 159, 0.3);
+  margin-top: 6px;
+  transition: transform 0.12s ease;
+}
+ 
+.submit-quiz:hover {
+  transform: translateY(-1px);
+}
+ 
+/* ---- Score card ---- */
+.score-card {
+  margin-top: 18px;
+  background: #ecfbf3;
+  border-radius: 18px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+ 
+.score-card strong {
+  color: #29a874;
+  font-size: 14.5px;
+  display: block;
+}
+ 
+.score-card p {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: #8fae9f;
+}
+ 
+.score-card h2 {
+  color: #29a874;
+  font-size: 24px;
+}
+ 
+.score-percent {
+  background: #ffffff;
+  color: #29a874;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(41, 168, 116, 0.15);
+}
+ 
+/* ============ Footer ============ */
+.main-content > footer {
+  text-align: center;
+  color: #cbb9c6;
+  font-size: 13px;
+  padding-top: 6px;
+}
+ 
+
+.save-session-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.save-session {
+  width: auto;
+  min-width: 220px;
+
+  padding: 13px 24px;
+
+  border: none;
+  border-radius: 16px;
+
+  background: linear-gradient(135deg, #f3e8ff, #eadcff);
+  color: #6b55b4;
+
+  font-weight: 700;
+  cursor: pointer;
+}

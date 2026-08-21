@@ -1,0 +1,44 @@
+/* ---- Header ---- */
+.top-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+ 
+.top-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ec6ba0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+ 
+.top-header p {
+  margin: 6px 0 0;
+  color: #b9a9b9;
+  font-size: 14.5px;
+}
+ 
+.mode-button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  color: #4a3f4a;
+  box-shadow: 0 4px 14px rgba(219, 112, 147, 0.12);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+ 
+.mode-button:hover {
+  transform: translateY(-1px);
+}

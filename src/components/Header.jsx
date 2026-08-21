@@ -1,12 +1,16 @@
+import "./Header.css";
+
 function Header() {
+  return (
+    <header className="top-header">
+      <div>
+        <h1>✨ AI Study Assistant</h1>
+        <p>Turn your notes into study material 💗</p>
+      </div>
 
-    return (
-        <>
-            <h1>AI Study assistant</h1>
-            <p>Paste your notes below to summarize</p>
-        </>
-    );
-
+      <button className="mode-button">☾</button>
+    </header>
+  );
 }
 
-export default Header
+export default Header;

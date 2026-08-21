@@ -1,11 +1,9 @@
 import "./App.css";
 import { useState } from "react";
 import Header from "./components/Header";
-import NotesInput from "./components/NotesInput"
-import SummaryButton from "./components/SummaryButton"
-import QuizButton from "./components/QuizButton";
-import SummaryOutput from "./components/SummaryOutput"
-import QuizOutput from "./components/QuizOutput";
+import Sidebar from "./components/Sidebar";
+import Home from "./pages/Home";
+import History from "./pages/History";
 
 /* 
 Sample notes to test:
@@ -26,10 +24,15 @@ function App() {
   const [summaryLoading, setSummaryLoading] = useState(false);
   const [quizLoading, setQuizLoading] = useState(false);
   const [quizSubmitted, setQuizSubmitted] = useState(false);
+  const [flashcards, setFlashcards] = useState([]);
+  const [flashcardsLoading, setFlashcardsLoading] = useState(false);
   const [score, setScore] = useState(null);
   const [error, setError] = useState("");
 
   const [selectedAnswers, setSelectedAnswers] = useState({});
+
+  const [sessions, setSessions] = useState([]); // save all sessions received from MongoDB
+  const [currentPage, setCurrentPage] = useState("home");
 
   async function handleSummary() {
     if (notes.trim() === ""){
@@ -132,151 +135,192 @@ function App() {
     setQuizSubmitted(true);
   }
 
+  async function handleSaveSession (){
+    if( !notes ){
+      setError("Please enter some notes before saving.");
+      return;
+    }
+
+    try{
+      // send an http request to this address and store response
+      const titleResponse = await fetch("http://localhost:5001/title", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"  // the information is JSON
+        },
+        body: JSON.stringify({  // convert js object to json to send
+          notes: notes
+        })
+      });
+
+      // check if the server returned an error
+      if(!titleResponse.ok){
+        throw new Error("Could not generate title");
+      }
+
+      const titleData = await titleResponse.json();
+
+      console.log("Generated title:", titleData);
+
+      const response = await fetch("http://localhost:5001/sessions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title: titleData.title,
+          notes,
+          summary,
+          quiz,
+          flashcards,
+          score
+        })
+      });
+      if(!response.ok){
+        throw new Error("Could not save session");
+      }
+
+      setError("");
+      alert("Study session saved!");
+
+    } catch(error){
+      setError("Could not save study session.");
+    }
+  }
+
+  async function handleLoadSessions(){
+    try{
+      const response = await fetch("http://localhost:5001/sessions");
+
+      if(!response.ok){
+        throw new Error("Could not load saved sessions.")
+      }
+
+      const data = await response.json();
+
+      console.log("Loaded sessions:", data);
+
+      setSessions(data);
+
+    } catch (error){
+      setError("Could not load study history.");
+    }
+  }
+
+  function handleOpenSession(session) {
+    setNotes(session.notes);
+    setSummary(session.summary);
+    setQuiz(session.quiz || []);
+    setFlashcards(session.flashcards || []);
+    setScore(session.score ?? null);
+
+    setSelectedAnswers({});
+    setQuizSubmitted(session.score !== null);
+
+    setCurrentPage("home");
+  }
+
+  async function handleDeleteSession(id){
+    try{
+      // delete session fromMongoDB
+      const response = await fetch(`http://localhost:5001/sessions/${id}`, {
+        method: "DELETE"
+      });
+
+      if (!response.ok) {
+        throw new Error("Could not delete session");
+      }
+
+      // remove session from screen
+      setSessions(sessions.filter((session) => session._id !== id));
+
+    } catch(error) {
+      setError("Could not delete study session.");
+    }
+  }
+
+  async function handleGenerateFlashcards() {
+    if (notes.trim() === "") {
+      setError("Please enter some notes first.");
+      return;
+    }
+
+    setFlashcardsLoading(true);
+    setError("");
+
+    try{
+      const response = await fetch("http://localhost:5001/flashcards", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json" 
+          },
+          body: JSON.stringify({
+            notes
+          })
+        });
+
+      if(!response.ok){
+        throw new Error("Could not generate flashcards.");
+      }
+      
+      const data = await response.json();
+
+      setFlashcards(data.flashcards);
+
+    } catch(error){
+      setError("Could not generate flashcards.");
+    } finally {
+      setFlashcardsLoading(false);
+    }
+
+  }
+
   return (
     <div className="app-shell">
 
       {/* sidebar */}
-      <aside className="sidebar">
-        <div className="logo-card">
-          <div className="cloud">☁️</div>
-          <h2>StudyAI</h2>
-        </div>
-
-        <nav className="nav-menu">
-          <button className="nav-item active">⌂ <span>Home</span></button>
-          <button className="nav-item">▤ <span>Summary</span></button>
-          <button className="nav-item">? <span>Quiz</span></button>
-          <button className="nav-item">◷ <span>History</span></button>
-          <button className="nav-item">⚙ <span>Settings</span></button>
-        </nav>
-
-        <div className="sidebar-decoration">
-          🌿
-          <p>Better notes<br />Brighter future ♡</p>
-        </div>
-      </aside>
+      <Sidebar 
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        handleLoadSessions={handleLoadSessions}
+      />
 
 
       {/* main */}
       <main className="main-content">
 
-        {/* header */}
-        <header className="top-header">
-          <div>
-            <h1>✨ AI Study Assistant</h1>
-            <p>Turn your notes into study material 💗</p>
-          </div>
+      <Header />
 
-          <button className="mode-button">☾</button>
-        </header>
+      {currentPage === "home" && (
+        <Home
+          notes={notes}
+          setNotes={setNotes}
+          summary={summary}
+          quiz={quiz}
+          flashcards={flashcards}
+          summaryLoading={summaryLoading}
+          quizLoading={quizLoading}
+          flashcardsLoading={flashcardsLoading}
+          error={error}
+          selectedAnswers={selectedAnswers}
+          setSelectedAnswers={setSelectedAnswers}
+          quizSubmitted={quizSubmitted}
+          score={score}
+          handleSummary={handleSummary}
+          handleGenerateQuiz={handleGenerateQuiz}
+          handleGenerateFlashcards={handleGenerateFlashcards}
+          handleSubmitQuiz={handleSubmitQuiz}
+          handleSaveSession={handleSaveSession}
+        />
+      )}
 
-
-        {/* top section */}
-        <section className="top-grid">
-
-          <div className="card notes-card">
-            <h2>📝 1. Paste your notes</h2>
-
-            <NotesInput
-              notes={notes}
-              setNotes={setNotes}
-            />
-
-            <div className="action-buttons">
-              <SummaryButton
-                onSummarize={handleSummary}
-                loading={summaryLoading}
-              />
-
-              <QuizButton
-                onGenerateQuiz={handleGenerateQuiz}
-                loading={quizLoading}
-              />
-            </div>
-
-            {error && <p className="error-message">{error}</p>}
-          </div>
-
-
-          <div className="card tips-card">
-            <h2>💡 Quick Tips</h2>
-
-            <p>✓ Use clear and concise notes</p>
-            <p>✓ Include key concepts</p>
-            <p>✓ The more detail, the better</p>
-            <p>✓ You can edit notes anytime!</p>
-
-            <div className="cute-character">🐱</div>
-          </div>
-
-        </section>
-
-
-        {/* bottom section */}
-        <section className="bottom-grid">
-
-          {/* summary */}
-          <div className="card summary-card">
-            <div className="section-title">
-              <h2>📄 Summary</h2>
-            </div>
-
-            <SummaryOutput summary={summary} />
-
-            <div className="plant-decoration">
-              🌱 ✨
-            </div>
-          </div>
-
-
-          {/* quiz */}
-          <div className="card quiz-card">
-            <div className="section-title">
-              <h2>❔ Quiz</h2>
-
-              {quiz.length > 0 && (
-                <span>{Object.keys(selectedAnswers).length} / {quiz.length}</span>
-              )}
-            </div>
-
-            <QuizOutput
-              quiz={quiz}
-              selectedAnswers={selectedAnswers}
-              setSelectedAnswers={setSelectedAnswers}
-              quizSubmitted={quizSubmitted}
-            />
-
-            {quiz.length > 0 && !quizSubmitted && (
-              <button
-                className="submit-quiz"
-                onClick={handleSubmitQuiz}
-              >
-                ✈ Submit Quiz
-              </button>
-            )}
-
-            {score !== null && (
-              <div className="score-card">
-                <div>
-                  <strong>⭐ Great job!</strong>
-                  <p>Your score</p>
-                </div>
-
-                <h2>{score} / {quiz.length}</h2>
-
-                <div className="score-percent">
-                  {Math.round((score / quiz.length) * 100)}%
-                </div>
-              </div>
-            )}
-          </div>
-
-        </section>
-
-
-        <footer>
-          💗 Keep learning and stay curious!
-        </footer>
+      {currentPage === "history" && (
+        <History 
+          sessions={sessions} 
+          handleOpenSession={handleOpenSession}
+          handleDeleteSession={handleDeleteSession}
+        />
+      )}
 
       </main>
     </div>

@@ -1,0 +1,138 @@
+/* =========================
+   HISTORY PAGE
+========================= */
+
+.history-page {
+  width: 100%;
+  padding: 20px 0 50px;
+}
+
+/* Page title */
+.history-page > h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #e85d93;
+  margin: 0 0 25px;
+}
+
+
+/* =========================
+   HISTORY CARDS
+========================= */
+
+.history-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #f3dce5;
+  border-radius: 18px;
+
+  padding: 22px 25px;
+  margin-bottom: 18px;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.04);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.history-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+}
+
+
+/* =========================
+   SESSION TITLE
+========================= */
+
+.history-card h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+
+  margin: 0 0 10px;
+}
+
+
+/* =========================
+   NOTES PREVIEW
+========================= */
+
+.history-card > p:first-of-type {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.6;
+
+  margin-bottom: 15px;
+
+  /* Only show 2 lines of notes */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+/* Score and date */
+.history-card p {
+  color: #777;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.history-card button {
+  border: none;
+  border-radius: 10px;
+
+  padding: 9px 15px;
+  margin-top: 14px;
+  margin-right: 8px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+
+/* Open Session button */
+.history-card button:first-of-type {
+  background: #f5a9c5;
+  color: white;
+}
+
+
+/* Delete button */
+.history-card button:last-of-type {
+  background: #f7e5eb;
+  color: #d95c82;
+}
+
+
+/* Button hover */
+.history-card button:hover {
+  transform: translateY(-1px);
+  opacity: 0.85;
+}
+
+
+/* =========================
+   EMPTY HISTORY
+========================= */
+
+.history-page > p {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid #f3dce5;
+  border-radius: 18px;
+
+  padding: 30px;
+
+  text-align: center;
+  color: #999;
+}
